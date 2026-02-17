@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\Query\Expr\Func;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -30,4 +29,27 @@ final class TestController extends AbstractController
             'name' => 'À propos',
         ]);
     }
+
+    #[Route('/article/nouveau', name: 'article_add')]
+    public function addArticle(): Response 
+    {
+        return $this->render('test/articleAdd.html.twig');
+    }
+
+    #[Route('/article/{slug}', name: 'article_show')]
+    public function show($slug): Response 
+    {
+        return $this->render('test/article.html.twig', [
+            'slug' =>  "Article n° $slug ",
+        ]);
+    }
+
+    //voir avec id:
+    // #[Route('/article/{id}', name: 'article_show')]
+    // public function show(int $id): Response 
+    // {
+    //     return $this->render('test/article.html.twig', [
+    //         'id' =>  "Article n° $id ",
+    //     ]);
+    // }
 }

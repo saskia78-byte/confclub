@@ -1,0 +1,20 @@
+<h1>Création d'un article</h1>
+
+    <fieldset>
+        <legend>Saisie d'un nouvel article</legend>
+
+        <form method="get" action="addArticle.php">
+            <div class="form">
+                <div class="form-group">
+                    <label for="titre">Titre</label>
+                    <input type="text" name="titre" class="form-control"
+                           id="titre" placeholder="Titre">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea  name="description" id="description"></textarea>
+                </div>
+            </div>
+           
+            <button type="submit" class="btn  btn-success" name="ajouter" value="valide">Ajouter</button>
+        </form>
