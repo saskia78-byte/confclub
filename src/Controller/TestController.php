@@ -26,11 +26,12 @@ final class TestController extends AbstractController
     public function aPropos(): Response 
     {
         return $this->render('test/aPropos.html.twig', [
-            'name' => 'À propos',
+            'name' => 'ConfClub',
+            'informations' => [["nom"=>"Année de création: 2020"], ["nom"=>"Public: ouvert à tout.e.s"], ["nom"=>"Type: sujet sociétaux et débats"], ["nom"=>"Intervenants: Sociologues, écrivain.e.s, scientifiques..."]]
         ]);
     }
 
-    #[Route('/article/nouveau', name: 'article_add')]
+    #[Route('/article/nouveau', name: 'article_add', methods: ['GET'])]
     public function addArticle(): Response 
     {
         return $this->render('test/articleAdd.html.twig');
@@ -42,6 +43,18 @@ final class TestController extends AbstractController
         return $this->render('test/article.html.twig', [
             'slug' =>  "Article n° $slug ",
         ]);
+    }
+
+    #[Route('/blog', name:'blog_get', methods: ['GET'])]
+    public function blog(): Response 
+    {
+        return new Response("Cette route n'accepte que les get." );
+    }
+
+    #[Route('/blog/create', name: 'blog_create', methods: ['POST'])]
+    public function create(): Response
+    {
+        return new Response("Cette route accepte uniquement les requêtes POST.");
     }
 
     //voir avec id:

@@ -7,8 +7,24 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+<secttion id="apropos">
+    <div>
+        <h2> {{ name }}: Qu'est ce que c'est? </h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet dignissim massa. Etiam et feugiat urna. Aenean sit amet velit a lectus aliquam pellentesque non vel tellus. Aenean ligula nulla, tincidunt vitae viverra sit amet, finibus non elit. Morbi leo velit, malesuada at sem sed, maximus facilisis erat. Fusce at orci purus. Mauris bibendum dolor ipsum, quis molestie eros auctor sed. Integer at mauris tincidunt, malesuada mi nec, pulvinar ipsum. Aenean at massa a mauris aliquet efficitur quis viverra dolor. Maecenas non tempus nibh. Maecenas ac nibh eu ex posuere gravida. In at tincidunt mi. Donec metus sem, tincidunt quis purus mattis, bibendum mollis quam. Duis aliquet imperdiet massa, non fermentum nibh aliquam eget. Cras consectetur, ipsum eget lobortis eleifend, justo turpis lobortis neque, in tincidunt orci nibh eget eros.
 
-<div>
-    <p> {{ name }}: </p>
-</div>
+        Integer eu dignissim ipsum. Sed eleifend erat justo, ut posuere tortor luctus at. Morbi consectetur diam vitae finibus laoreet. Praesent augue ipsum, malesuada non eros id, malesuada vulputate magna. Fusce vestibulum ultricies erat id rutrum. Nulla quis erat maximus, ultricies nibh tempus, mollis ante. Sed nulla libero, accumsan nec magna eget, sagittis hendrerit odio. Praesent mollis pulvinar nisl in bibendum.
+        </P>
+        <p>
+            <ul>
+                {% for information in informations %}
+                    <li>
+                        {{information.nom}}
+                    </li>
+                {% else %}
+                    <li> Aucune information trouvée!</li>
+                {% endfor %}
+            </ul>
+        </p>
+    </div>
+</secttion>
 {% endblock %}

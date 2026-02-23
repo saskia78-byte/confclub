@@ -1,3 +1,12 @@
-body {
-    background-color: skyblue;
+@import "tailwindcss";
+
+body .container {
+    background-color:rgb(214, 190, 227);
+}
+.nav {
+    background-color: darkorchid;
+}
+
+.img {
+    border-radius: 5px;
 }
