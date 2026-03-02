@@ -1,8 +1,6 @@
 @import "tailwindcss";
 
-body .container {
-    background-color:rgb(214, 190, 227);
-}
+
 .nav {
     background-color: darkorchid;
 }
