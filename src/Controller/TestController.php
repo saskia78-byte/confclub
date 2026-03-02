@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Form\ContactType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -17,9 +23,17 @@ final class TestController extends AbstractController
     }
 
     #[Route('/contact', name: 'app_contact')]
-    public function contact(): Response 
+    public function contact(Request $request): Response 
     {
-        return $this->render('test/contact.html.twig');
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
+                dd($data);
+            }
+        return $this->render('test/contact.html.twig', [
+            'form'=>$form,
+        ]);
     }
 
     #[Route('/aPropos', name: 'app_aPropos')]

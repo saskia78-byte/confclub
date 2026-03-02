@@ -10,5 +10,14 @@
 
 <div>
     <p>Nous contacter : </p>
+    <section class="formulaire"> 
+        {{form_start(form, {'attr': {'class': 'space-y-4'}})}} 
+        {{form_widget(form)}}
+        <button type="submit" class="envoyer">
+        Envoyer
+        </button> 
+        {{form_end(form)}}
+    </section>
 </div>
+
 {% endblock %}
