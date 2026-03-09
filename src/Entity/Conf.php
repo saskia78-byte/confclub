@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ConfRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ConfRepository::class)]
 #[ORM\Table(name: 'conf')]
@@ -16,7 +17,13 @@ class Conf
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $titre = null;
+    #[Assert\Length(
+        min: 5,
+        max: 100,
+        )
+    ]
+    #[Assert\NotBlank(message:'Le titre ne peut pas être vide')]
+    private string $titre;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;

@@ -11,7 +11,7 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    {% block body %}
         <header>
             <div class= "container mx-auto">
                 <nav class="relative bg-gray-800">
@@ -83,14 +83,8 @@
                 </nav>
             </div>
         </header>
-        <main data-controller="toggle">
-            <button data-action="click->toggle#toggle"
-            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Changer le thème
-            </button>
-            <div class="container mx-auto bg-purple-200 transition-colors duration-300" data-toggle-target="container">
-                {% block body %}{% endblock %}
-            </div>
-        </main>
+        {% block main %}{% endblock %}
+        
         <footer class="bg-gray-900 text-gray-400">
             <div class="max-w-7xl mx-auto px-6 py-10">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -123,5 +117,5 @@
                 </div>
             </div>
         </footer>
-    </body>
+    {% endblock %}
 </html>
