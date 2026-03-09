@@ -1,43 +1,102 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Conf index{% endblock %}
+{% block title %}Conférences{% endblock %}
 
-{% block body %}
-    <h1>Conf index</h1>
+{% block main %}
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>DateConf</th>
-                <th>DateAjout</th>
-                <th>Statut</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for conf in confs %}
-            <tr>
-                <td>{{ conf.id }}</td>
-                <td>{{ conf.titre }}</td>
-                <td>{{ conf.description }}</td>
-                <td>{{ conf.dateConf ? conf.dateConf|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ conf.dateAjout ? conf.dateAjout|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ conf.statut }}</td>
-                <td>
-                    <a href="{{ path('app_conf_show', {'id': conf.id}) }}">show</a>
-                    <a href="{{ path('app_conf_edit', {'id': conf.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="mb-10 flex items-end justify-between border-b border-slate-700 pb-6">
+        <div>
+            <p class="text-xs font-semibold tracking-widest text-indigo-400 uppercase mb-1">confClub</p>
+            <h1 class="text-4xl font-bold text-white">Conférences</h1>
+        </div>
+        <a href="{{ path('app_conf_new') }}"
+        class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors duration-200">
+            + Nouvelle conférence
+        </a>
+    </div>
 
-    <a href="{{ path('app_conf_new') }}">Create new</a>
+    <div class="overflow-x-auto rounded-xl border border-slate-800">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-slate-900 text-slate-400 text-xs uppercase tracking-wider">
+                    <th class="px-5 py-4 text-left">#</th>
+                    <th class="px-5 py-4 text-left">Titre</th>
+                    <th class="px-5 py-4 text-left">Description</th>
+                    <th class="px-5 py-4 text-left">Date</th>
+                    <th class="px-5 py-4 text-left">Statut</th>
+                    <th class="px-5 py-4 text-left">Conférenciers</th>
+                    <th class="px-5 py-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+            {% for conf in confs %}
+                <tr class="bg-slate-900 hover:bg-slate-800 transition-colors duration-150">
+
+                    <td class="px-5 py-4 text-slate-500 font-mono text-xs">{{ conf.id }}</td>
+
+                    <td class="px-5 py-4 font-semibold text-white">{{ conf.titre }}</td>
+
+                    <td class="px-5 py-4 text-slate-400 max-w-xs truncate">
+                        {{ conf.description ?? '—' }}
+                    </td>
+
+                    <td class="px-5 py-4 text-slate-300 whitespace-nowrap">
+                        {{ conf.dateConf ? conf.dateConf|date('d/m/Y') : '—' }}
+                    </td>
+
+                    <td class="px-5 py-4">
+                        {% if conf.statut == 'actif' %}
+                            <span class="inline-block bg-emerald-500/10 text-emerald-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                Actif
+                            </span>
+                        {% elseif conf.statut == 'annulé' %}
+                            <span class="inline-block bg-red-500/10 text-red-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                Annulé
+                            </span>
+                        {% else %}
+                            <span class="inline-block bg-slate-700 text-slate-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+                                {{ conf.statut ?? '—' }}
+                            </span>
+                        {% endif %}
+                    </td>
+
+                    <td class="px-5 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            {% for conferencier in conf.conferencier %}
+                                <span class="inline-block bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
+                                    {{ conferencier.prenom }} {{ conferencier.nom }}
+                                </span>
+                            {% else %}
+                                <span class="text-slate-600 text-xs italic">Aucun</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+
+                    <td class="px-5 py-4">
+                        <div class="flex items-center gap-2">
+                            <a href="{{ path('app_conf_show', {'id': conf.id}) }}"
+                            class="text-xs font-medium text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-md transition-colors">
+                                Voir
+                            </a>
+                            <a href="{{ path('app_conf_edit', {'id': conf.id}) }}"
+                            class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
+                                Éditer
+                            </a>
+                        </div>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7" class="px-5 py-16 text-center text-slate-600 italic">
+                        Aucune conférence trouvée.
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
 {% endblock %}

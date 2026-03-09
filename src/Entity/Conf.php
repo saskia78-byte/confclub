@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ConfRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -36,6 +38,17 @@ class Conf
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $statut = null;
+
+    /**
+     * @var Collection<int, Conferencier>
+     */
+    #[ORM\ManyToMany(targetEntity: Conferencier::class, inversedBy: 'confs')]
+    private Collection $Conferencier;
+
+    public function __construct()
+    {
+        $this->Conferencier = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -98,6 +111,30 @@ class Conf
     public function setStatut(?string $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conferencier>
+     */
+    public function getConferencier(): Collection
+    {
+        return $this->Conferencier;
+    }
+
+    public function addConferencier(Conferencier $conferencier): static
+    {
+        if (!$this->Conferencier->contains($conferencier)) {
+            $this->Conferencier->add($conferencier);
+        }
+
+        return $this;
+    }
+
+    public function removeConferencier(Conferencier $conferencier): static
+    {
+        $this->Conferencier->removeElement($conferencier);
 
         return $this;
     }

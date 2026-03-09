@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Conferencier{% endblock %}
+
+{% block main %}
+    <h1>Edit Conferencier</h1>
+
+    {{ include('conferencier/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_conferencier_index') }}">back to list</a>
+
+    {{ include('conferencier/_delete_form.html.twig') }}
+{% endblock %}

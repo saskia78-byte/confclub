@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conférenciers{% endblock %}
+
+{% block main %}
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
+
+    {# Header #}
+    <div class="mb-10 flex items-end justify-between border-b border-slate-700 pb-6">
+        <div>
+            <p class="text-xs font-semibold tracking-widest text-indigo-400 uppercase mb-1">confClub</p>
+            <h1 class="text-4xl font-bold text-white">Conférenciers</h1>
+        </div>
+        <a href="{{ path('app_conferencier_new') }}"
+        class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors duration-200">
+            + Nouveau conférencier
+        </a>
+    </div>
+
+    {# Table #}
+    <div class="overflow-x-auto rounded-xl border border-slate-800">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-slate-900 text-slate-400 text-xs uppercase tracking-wider">
+                    <th class="px-5 py-4 text-left">Nom</th>
+                    <th class="px-5 py-4 text-left">Prénom</th>
+                    <th class="px-5 py-4 text-left">Conférences</th>
+                    <th class="px-5 py-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+            {% for conferencier in conferenciers %}
+                <tr class="bg-slate-900 hover:bg-slate-800 transition-colors duration-150">
+
+                    {# Nom #}
+                    <td class="px-5 py-4 font-semibold text-white">{{ conferencier.nom }}</td>
+
+                    {# Prénom #}
+                    <td class="px-5 py-4 text-slate-300">{{ conferencier.prenom }}</td>
+
+                    {# Conférences #}
+                    <td class="px-5 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            {% for conf in conferencier.confs %}
+                                <span class="inline-block bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
+                                    {{ conf.titre }}
+                                </span>
+                            {% else %}
+                                <span class="text-slate-600 text-xs italic">Aucune</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+
+                    {# Actions #}
+                    <td class="px-5 py-4">
+                        <div class="flex items-center gap-2">
+                            <a href="{{ path('app_conferencier_show', {'id': conferencier.id}) }}"
+                            class="text-xs font-medium text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-md transition-colors">
+                                Voir
+                            </a>
+                            <a href="{{ path('app_conferencier_edit', {'id': conferencier.id}) }}"
+                            class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
+                                Éditer
+                            </a>
+                        </div>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4" class="px-5 py-16 text-center text-slate-600 italic">
+                        Aucun conférencier trouvé.
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}

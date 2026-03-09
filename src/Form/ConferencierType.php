@@ -9,19 +9,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ConfType extends AbstractType
+class ConferencierType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre')
-            ->add('description')
-            ->add('dateConf')
-            ->add('statut')
-            ->add('conferencier', EntityType::class, [
-                'class' => Conferencier::class,
-                'choice_label' => 'nom',
+            ->add('nom')
+            ->add('prenom')
+            ->add('confs', EntityType::class, [
+                'class' => Conf::class,
+                'choice_label' => 'id',
                 'multiple' => true,
+                'by_reference' => false,
             ])
         ;
     }
@@ -29,7 +28,7 @@ class ConfType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Conf::class,
+            'data_class' => Conferencier::class,
         ]);
     }
 }

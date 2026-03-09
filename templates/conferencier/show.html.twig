@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conferencier{% endblock %}
+
+{% block main %}
+    <h1>Conferencier</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ conferencier.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ conferencier.prenom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_conferencier_index') }}">back to list</a>
+
+    <a href="{{ path('app_conferencier_edit', {'id': conferencier.id}) }}">edit</a>
+
+    {{ include('conferencier/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Conferencier{% endblock %}
+
+{% block main %}
+    <h1>Crééer new Conferencier</h1>
+
+    {{ include('conferencier/_form.html.twig') }}
+
+    <a href="{{ path('app_conferencier_index') }}">back to list</a>
+{% endblock %}
