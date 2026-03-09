@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Conf;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,9 +16,6 @@ class ConfType extends AbstractType
             ->add('description')
             ->add('dateConf')
             ->add('statut')
-            ->add('save', SubmitType::class, [
-                'label' => "Envoyer"
-            ])
         ;
     }
 

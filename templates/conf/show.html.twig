@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conf{% endblock %}
+
+{% block body %}
+    <h1>Conf</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ conf.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ conf.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ conf.description }}</td>
+            </tr>
+            <tr>
+                <th>DateConf</th>
+                <td>{{ conf.dateConf ? conf.dateConf|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateAjout</th>
+                <td>{{ conf.dateAjout ? conf.dateAjout|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ conf.statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_conf_index') }}">back to list</a>
+
+    <a href="{{ path('app_conf_edit', {'id': conf.id}) }}">edit</a>
+
+    {{ include('conf/_delete_form.html.twig') }}
+{% endblock %}

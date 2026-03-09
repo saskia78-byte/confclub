@@ -11,59 +11,72 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/conf')]
 final class ConfController extends AbstractController
 {
-    #[Route('/conf', name: 'app_conf')]
-    public function index(): Response
+    #[Route(name: 'app_conf_index', methods: ['GET'])]
+    public function index(ConfRepository $confRepository): Response
     {
         return $this->render('conf/index.html.twig', [
-            'controller_name' => 'ConfController',
+            'confs' => $confRepository->findAll(),
         ]);
     }
 
-    #[Route('/confs', name: 'app_confs')]
-    public function confs(ConfRepository $confRepository) {
-        $confs = $confRepository->findAll();
-    }
-
-    #[Route('/conf/{id}/show', name: 'app_conf')]
-    public function showConf(conf $conf): Response {
-        dd($conf);
-    }
-
-    #[Route('/conf/{id}/update', name: 'update_conf')]
-    public function updateConf(EntityManagerInterface $em, int $id) : Response {
-        $repository = $em->getRepository(Conf::class);
-        $conf = $repository->find($id);
-        $conf->setTitre('Nouveau titre conf $id');
-        $em->flush();
-        dd($conf);
-
-    }
-
-    #[Route('/conf/{id}/delete', name: 'delete_conf')]
-    public function deleteConf(EntityManagerInterface $em, int $id) : Response {
-        $repository = $em->getRepository(Conf::class);
-        $conf = $repository->find($id);
-        $em->remove($conf);
-        $em->flush();
-        return $this->redirectToRoute('app_confs');
-    }
-
-    #[Route('/conf/creer', name: 'creer_conf')]
-    public function creerConf(EntityManagerInterface $em, Request $request) : Response {
+    #[Route('/new', name: 'app_conf_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
         $conf = new Conf();
         $form = $this->createForm(ConfType::class, $conf);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $conf->setDateAjout(new \DateTimeImmutable);
-            $em->persist($conf);
-            $em->flush();
-            return $this->redirectToRoute('app_confs');
+            $entityManager->persist($conf);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_conf_index', [], Response::HTTP_SEE_OTHER);
         }
-        
-        return $this->render('conf/creer.html.twig', [
-            'form' => $form->createView(),
+
+        return $this->render('conf/new.html.twig', [
+            'conf' => $conf,
+            'form' => $form,
         ]);
+    }
+
+    #[Route('/{id}', name: 'app_conf_show', methods: ['GET'])]
+    public function show(Conf $conf): Response
+    {
+        return $this->render('conf/show.html.twig', [
+            'conf' => $conf,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_conf_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Conf $conf, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ConfType::class, $conf);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_conf_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('conf/edit.html.twig', [
+            'conf' => $conf,
+            'form' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_conf_delete', methods: ['POST'])]
+    public function delete(Request $request, Conf $conf, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$conf->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($conf);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_conf_index', [], Response::HTTP_SEE_OTHER);
     }
 }
