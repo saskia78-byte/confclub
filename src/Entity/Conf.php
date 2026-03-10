@@ -48,9 +48,16 @@ class Conf
     #[ORM\ManyToOne(inversedBy: 'confs')]
     private ?Theme $theme = null;
 
+    /**
+     * @var Collection<int, Materielconf>
+     */
+    #[ORM\OneToMany(targetEntity: Materielconf::class, mappedBy: 'conf')]
+    private Collection $materielconfs;
+
     public function __construct()
     {
         $this->Conferencier = new ArrayCollection();
+        $this->materielconfs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -150,6 +157,36 @@ class Conf
     public function setTheme(?Theme $theme): static
     {
         $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Materielconf>
+     */
+    public function getMaterielconfs(): Collection
+    {
+        return $this->materielconfs;
+    }
+
+    public function addMaterielconf(Materielconf $materielconf): static
+    {
+        if (!$this->materielconfs->contains($materielconf)) {
+            $this->materielconfs->add($materielconf);
+            $materielconf->setConf($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMaterielconf(Materielconf $materielconf): static
+    {
+        if ($this->materielconfs->removeElement($materielconf)) {
+            // set the owning side to null (unless already changed)
+            if ($materielconf->getConf() === $this) {
+                $materielconf->setConf(null);
+            }
+        }
 
         return $this;
     }
