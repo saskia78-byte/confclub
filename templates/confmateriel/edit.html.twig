@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Confmateriel{% endblock %}
+
+{% block body %}
+    <h1>Edit Confmateriel</h1>
+
+    {{ include('confmateriel/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_confmateriel_index') }}">back to list</a>
+
+    {{ include('confmateriel/_delete_form.html.twig') }}
+{% endblock %}

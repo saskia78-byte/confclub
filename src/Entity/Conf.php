@@ -45,9 +45,19 @@ class Conf
     #[ORM\ManyToMany(targetEntity: Conferencier::class, inversedBy: 'confs')]
     private Collection $Conferencier;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'confs')]
+    private ?self $confmateriel = null;
+
+    /**
+     * @var Collection<int, self>
+     */
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'confmateriel')]
+    private Collection $confs;
+
     public function __construct()
     {
         $this->Conferencier = new ArrayCollection();
+        $this->confs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,6 +145,48 @@ class Conf
     public function removeConferencier(Conferencier $conferencier): static
     {
         $this->Conferencier->removeElement($conferencier);
+
+        return $this;
+    }
+
+    public function getConfmateriel(): ?self
+    {
+        return $this->confmateriel;
+    }
+
+    public function setConfmateriel(?self $confmateriel): static
+    {
+        $this->confmateriel = $confmateriel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getConfs(): Collection
+    {
+        return $this->confs;
+    }
+
+    public function addConf(self $conf): static
+    {
+        if (!$this->confs->contains($conf)) {
+            $this->confs->add($conf);
+            $conf->setConfmateriel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConf(self $conf): static
+    {
+        if ($this->confs->removeElement($conf)) {
+            // set the owning side to null (unless already changed)
+            if ($conf->getConfmateriel() === $this) {
+                $conf->setConfmateriel(null);
+            }
+        }
 
         return $this;
     }
