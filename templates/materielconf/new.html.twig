@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Materielconf{% endblock %}
+
+{% block main %}
+    <h1>Create new Materielconf</h1>
+
+    {{ include('materielconf/_form.html.twig') }}
+
+    <a href="{{ path('app_materielconf_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Materielconf{% endblock %}
+
+{% block main %}
+    <h1>Materielconf</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ materielconf.id }}</td>
+            </tr>
+            <tr>
+                <th>Dateresa</th>
+                <td>{{ materielconf.dateresa ? materielconf.dateresa|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_materielconf_index') }}">back to list</a>
+
+    <a href="{{ path('app_materielconf_edit', {'id': materielconf.id}) }}">edit</a>
+
+    {{ include('materielconf/_delete_form.html.twig') }}
+{% endblock %}
