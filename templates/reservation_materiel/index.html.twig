@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation matériel{% endblock %}
+
+{% block main %}
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
+
+    {# Header #}
+    <div class="mb-10 border-b border-slate-700 pb-6">
+        <p class="text-xs font-semibold tracking-widest text-indigo-400 uppercase mb-1">confClub</p>
+        <h1 class="text-4xl font-bold text-white">Réserver du matériel</h1>
+    </div>
+
+    <div class="max-w-lg">
+        {{ form_start(form) }}
+
+            {# Conférence #}
+            <div class="mb-6">
+                {{ form_label(form.conf, 'Conférence', {'label_attr': {'class': 'block text-xs font-semibold tracking-widest text-slate-400 uppercase mb-2'}}) }}
+                {{ form_widget(form.conf, {'attr': {'class': 'w-full bg-slate-900 border border-slate-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 transition-colors'}}) }}
+            </div>
+
+            {# Date #}
+            <div class="mb-6">
+                {{ form_label(form.dateresa, 'Date de réservation', {'label_attr': {'class': 'block text-xs font-semibold tracking-widest text-slate-400 uppercase mb-2'}}) }}
+                {{ form_widget(form.dateresa, {'attr': {'class': 'w-full bg-slate-900 border border-slate-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 transition-colors'}}) }}
+            </div>
+
+            {# Matériels #}
+            <div class="mb-6">
+                <p class="block text-xs font-semibold tracking-widest text-slate-400 uppercase mb-2">Matériels</p>
+                <div id="materiels-collection" data-prototype="{{ form_widget(form.materiels.vars.prototype)|e('html') }}" class="space-y-3">
+                    {% for materiel in form.materiels %}
+                        <div class="materiel-item flex items-center gap-3">
+                            {{ form_widget(materiel.materiel, {'attr': {'class': 'w-full bg-slate-900 border border-slate-700 text-white text-sm rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 transition-colors'}}) }}
+                            <button type="button" onclick="this.parentElement.remove()"
+                                    class="text-xs text-red-400 hover:text-red-300 bg-red-900/30 hover:bg-red-900/50 px-3 py-3 rounded-lg transition-colors">
+                                ✕
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="button" id="add-materiel"
+                        class="mt-3 text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-4 py-2 rounded-lg transition-colors">
+                    + Ajouter un matériel
+                </button>
+            </div>
+
+            {# Bouton #}
+            <div class="pt-2">
+                <button type="submit"
+                        class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm px-6 py-3 rounded-lg transition-colors duration-200">
+                    Enregistrer
+                </button>
+            </div>
+
+        {{ form_end(form) }}
+
+        <div class="mt-4 text-center">
+            <a href="{{ path('app_materielconf_index') }}"
+            class="text-xs text-slate-500 hover:text-slate-300 transition-colors">
+                ← Retour à la liste
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const collection = document.getElementById('materiels-collection');
+    const addBtn = document.getElementById('add-materiel');
+    let index = {{ form.materiels|length }};
+
+    addBtn.addEventListener('click', () => {
+        const prototype = collection.dataset.prototype;
+        const newItem = prototype.replace(/__name__/g, index);
+        const div = document.createElement('div');
+        div.classList.add('materiel-item', 'flex', 'items-center', 'gap-3');
+        div.innerHTML = newItem + `<button type="button" onclick="this.parentElement.remove()" class="text-xs text-red-400 hover:text-red-300 bg-red-900/30 hover:bg-red-900/50 px-3 py-3 rounded-lg transition-colors">✕</button>`;
+        collection.appendChild(div);
+        index++;
+    });
+</script>
+
+{% endblock %}
