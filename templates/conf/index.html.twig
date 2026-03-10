@@ -26,6 +26,7 @@
                     <th class="px-5 py-4 text-left">Date</th>
                     <th class="px-5 py-4 text-left">Statut</th>
                     <th class="px-5 py-4 text-left">Conférenciers</th>
+                    <th class="px-5 py-4 text-left">Theme</th>
                     <th class="px-5 py-4 text-left">Actions</th>
                 </tr>
             </thead>
@@ -70,6 +71,18 @@
                             {% else %}
                                 <span class="text-slate-600 text-xs italic">Aucun</span>
                             {% endfor %}
+                        </div>
+                    </td>
+
+                    <td class="px-5 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            {% if conf.theme %}
+                                <span class="inline-block bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
+                                    {{ conf.theme.libelle }}
+                                </span>
+                            {% else %}
+                                <span class="text-slate-600 text-xs italic">Aucun</span>
+                            {% endif %}
                         </div>
                     </td>
 

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Theme; 
 use App\Entity\Conf;
 use App\Entity\Conferencier;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,6 +23,10 @@ class ConfType extends AbstractType
                 'class' => Conferencier::class,
                 'choice_label' => 'nom',
                 'multiple' => true,
+            ])
+            ->add('theme', EntityType::class, [
+                'class' => Theme::class,
+                'choice_label' => 'libelle',
             ])
         ;
     }

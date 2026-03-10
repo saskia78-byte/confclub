@@ -45,19 +45,12 @@ class Conf
     #[ORM\ManyToMany(targetEntity: Conferencier::class, inversedBy: 'confs')]
     private Collection $Conferencier;
 
-    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'confs')]
-    private ?self $confmateriel = null;
-
-    /**
-     * @var Collection<int, self>
-     */
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'confmateriel')]
-    private Collection $confs;
+    #[ORM\ManyToOne(inversedBy: 'confs')]
+    private ?Theme $theme = null;
 
     public function __construct()
     {
         $this->Conferencier = new ArrayCollection();
-        $this->confs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -149,44 +142,14 @@ class Conf
         return $this;
     }
 
-    public function getConfmateriel(): ?self
+    public function getTheme(): ?Theme
     {
-        return $this->confmateriel;
+        return $this->theme;
     }
 
-    public function setConfmateriel(?self $confmateriel): static
+    public function setTheme(?Theme $theme): static
     {
-        $this->confmateriel = $confmateriel;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, self>
-     */
-    public function getConfs(): Collection
-    {
-        return $this->confs;
-    }
-
-    public function addConf(self $conf): static
-    {
-        if (!$this->confs->contains($conf)) {
-            $this->confs->add($conf);
-            $conf->setConfmateriel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeConf(self $conf): static
-    {
-        if ($this->confs->removeElement($conf)) {
-            // set the owning side to null (unless already changed)
-            if ($conf->getConfmateriel() === $this) {
-                $conf->setConfmateriel(null);
-            }
-        }
+        $this->theme = $theme;
 
         return $this;
     }
