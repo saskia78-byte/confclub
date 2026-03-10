@@ -3,7 +3,8 @@
 {% block title %}Conferencier{% endblock %}
 
 {% block main %}
-    <h1>Conferencier</h1>
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
+        <h1 class="text-5xl font-bold tracking-tight text-white"> Conférenciers </h1>
 
     <table class="table">
         <tbody>
@@ -17,10 +18,19 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('app_conferencier_index') }}">back to list</a>
-
-    <a href="{{ path('app_conferencier_edit', {'id': conferencier.id}) }}">edit</a>
-
-    {{ include('conferencier/_delete_form.html.twig') }}
+    <div class="flex items-center gap-3">
+        <a href="{{ path('app_conferencier_index') }}"
+        class="text-xs font-medium text-white bg-slate-600 hover:bg-slate-500 px-3 py-1.5 rounded-md transition-colors">
+            ← Retour à la liste
+        </a>
+        <a href="{{ path('app_conferencier_edit', {'id': conferencier.id}) }}"
+        class="text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-md transition-colors">
+            Éditer
+        </a>
+        <a href="{{ path('app_conferencier_delete', {'id': conferencier.id}) }}"
+        class="text-xs font-medium text-white bg-red-600 hover:bg-red-500 px-3 py-1.5 rounded-md transition-colors">
+            Supprimer
+        </a>
+    </div>
+</div>
 {% endblock %}

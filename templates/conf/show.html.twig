@@ -3,40 +3,44 @@
 {% block title %}Conf{% endblock %}
 
 {% block main %}
-    <h1>Conf</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ conf.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ conf.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ conf.description }}</td>
-            </tr>
-            <tr>
-                <th>DateConf</th>
-                <td>{{ conf.dateConf ? conf.dateConf|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateAjout</th>
-                <td>{{ conf.dateAjout ? conf.dateAjout|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ conf.statut }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_conf_index') }}">back to list</a>
-
-    <a href="{{ path('app_conf_edit', {'id': conf.id}) }}">edit</a>
-
-    {{ include('conf/_delete_form.html.twig') }}
+    <div class="min-h-screen bg-slate-950 text-white px-6 py-10">
+        <h1 class="text-5xl font-bold tracking-tight text-white"> Conférence </h1>
+        <table class="w-full text-sm">
+            <tbody class="divide-y divide-slate-800">
+                <tr>
+                    <th  class="px-5 py-4 font-semibold text-white">Titre</th>
+                    <td class="text-slate-400">{{ conf.titre }}</td>
+                </tr>
+                <tr>
+                    <th class="px-5 py-4 font-semibold text-white">Description</th>
+                    <td class="text-slate-400">{{ conf.description }}</td>
+                </tr>
+                <tr>
+                    <th class="px-5 py-4 font-semibold text-white">DateConf</th>
+                    <td class="text-slate-400">{{ conf.dateConf ? conf.dateConf|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th class="px-5 py-4 font-semibold text-white">DateAjout</th>
+                    <td class="text-slate-400">{{ conf.dateAjout ? conf.dateAjout|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>
+                    <th class="px-5 py-4 font-semibold text-white">Statut</th>
+                    <td class="text-slate-400">{{ conf.statut }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="flex items-center gap-3">
+        <a href="{{ path('app_conf_index') }}"
+        class="text-xs font-medium text-white bg-slate-600 hover:bg-slate-500 px-3 py-1.5 rounded-md transition-colors">
+            ← Retour à la liste
+        </a>
+        <a href="{{ path('app_conf_edit', {'id': conf.id}) }}"
+        class="text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-md transition-colors">
+            Éditer
+        </a>
+        <a href="{{ path('app_conf_delete', {'id': conf.id}) }}"
+        class="text-xs font-medium text-white bg-red-600 hover:bg-red-500 px-3 py-1.5 rounded-md transition-colors">
+            Supprimer
+        </a>
+    </div>
 {% endblock %}

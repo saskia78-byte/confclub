@@ -40,7 +40,7 @@
                     <td class="px-5 py-4 font-semibold text-white">
                         {% if materielconf.materiel %}
                             <span class="inline-block bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
-                                {{ materielconf.materiel.nom }}
+                                {{ materielconf.materiel.libelle }}
                             </span>
                         {% else %}
                             <span class="text-slate-600 text-xs italic">Aucun</span>
@@ -71,6 +71,10 @@
                             <a href="{{ path('app_materielconf_edit', {'id': materielconf.id}) }}"
                             class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
                                 Éditer
+                            </a>
+                            <a href="{{ path('app_materielconf_delete', {'id': materielconf.id}) }}"
+                            class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
+                                Supprimer
                             </a>
                         </div>
                     </td>

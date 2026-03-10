@@ -3,9 +3,11 @@
 {% block title %}New Conferencier{% endblock %}
 
 {% block main %}
-    <h1>Crééer new Conferencier</h1>
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
+    <h1 class="text-5xl font-bold tracking-tight text-white"> Créer un nouveau conférencier</h1>
 
     {{ include('conferencier/_form.html.twig') }}
+</div>
 
     <a href="{{ path('app_conferencier_index') }}">back to list</a>
 {% endblock %}

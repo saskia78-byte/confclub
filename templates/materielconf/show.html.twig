@@ -3,8 +3,8 @@
 {% block title %}Materielconf{% endblock %}
 
 {% block main %}
-    <h1>Materielconf</h1>
-
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
+    <h1 class="text-5xl font-bold tracking-tight text-white"> Réservation materiel</h1>
     <table class="table">
         <tbody>
             <tr>
@@ -17,10 +17,19 @@
             </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('app_materielconf_index') }}">back to list</a>
-
-    <a href="{{ path('app_materielconf_edit', {'id': materielconf.id}) }}">edit</a>
-
-    {{ include('materielconf/_delete_form.html.twig') }}
+    <div class="flex items-center gap-3">
+        <a href="{{ path('app_materielconf_index') }}"
+        class="text-xs font-medium text-white bg-slate-600 hover:bg-slate-500 px-3 py-1.5 rounded-md transition-colors">
+            ← Retour à la liste
+        </a>
+        <a href="{{ path('app_materielconf_edit', {'id': materielconf.id}) }}"
+        class="text-xs font-medium text-white bg-indigo-600 hover:bg-indigo-500 px-3 py-1.5 rounded-md transition-colors">
+            Éditer
+        </a>
+        <a href="{{ path('app_materielconf_delete', {'id': materielconf.id}) }}"
+        class="text-xs font-medium text-white bg-red-600 hover:bg-red-500 px-3 py-1.5 rounded-md transition-colors">
+            Supprimer
+        </a>
+    </div>
+</div>
 {% endblock %}

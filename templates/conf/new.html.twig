@@ -3,9 +3,11 @@
 {% block title %}New Conf{% endblock %}
 
 {% block main %}
-    <h1>Create new Conf</h1>
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
+    <h1 class="text-5xl font-bold tracking-tight text-white"> Créer une nouvelle conférence</h1>
 
     {{ include('conf/_form.html.twig') }}
+</div>
 
     <a href="{{ path('app_conf_index') }}">back to list</a>
 {% endblock %}

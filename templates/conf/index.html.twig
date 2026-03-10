@@ -27,6 +27,7 @@
                     <th class="px-5 py-4 text-left">Statut</th>
                     <th class="px-5 py-4 text-left">Conférenciers</th>
                     <th class="px-5 py-4 text-left">Theme</th>
+                    <th class="px-5 py-4 text-left">Materiel</th>
                     <th class="px-5 py-4 text-left">Actions</th>
                 </tr>
             </thead>
@@ -87,6 +88,18 @@
                     </td>
 
                     <td class="px-5 py-4">
+                        <div class="flex flex-wrap gap-1">
+                            {% for mc in conf.materielconfs %}
+                                <span class="inline-block bg-indigo-500/10 text-indigo-300 text-xs px-2 py-0.5 rounded-full">
+                                    {{ mc.materiel.libelle }}
+                                </span>
+                            {% else %}
+                                <span class="text-slate-600 text-xs italic">Aucun</span>
+                            {% endfor %}
+                        </div>
+                    </td>
+
+                    <td class="px-5 py-4">
                         <div class="flex items-center gap-2">
                             <a href="{{ path('app_conf_show', {'id': conf.id}) }}"
                             class="text-xs font-medium text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-md transition-colors">
@@ -95,6 +108,10 @@
                             <a href="{{ path('app_conf_edit', {'id': conf.id}) }}"
                             class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
                                 Éditer
+                            </a>
+                            <a href="{{ path('app_conf_delete', {'id': conf.id}) }}"
+                            class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
+                                Supprimer
                             </a>
                         </div>
                     </td>
@@ -110,6 +127,5 @@
             </tbody>
         </table>
     </div>
-
 </div>
 {% endblock %}

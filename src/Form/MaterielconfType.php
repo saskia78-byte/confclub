@@ -20,7 +20,7 @@ class MaterielconfType extends AbstractType
             ])
             ->add('materiel', EntityType::class, [
                 'class' => Materiel::class,
-                'choice_label' => 'id',
+                'choice_label' => 'libelle',
             ])
             ->add('conf', EntityType::class, [
                 'class' => Conf::class,

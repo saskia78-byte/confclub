@@ -1,35 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Materiel index{% endblock %}
+{% block title %}Matériel{% endblock %}
 
-{% block body %}
-    <h1>Materiel index</h1>
+{% block main %}
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for materiel in materiels %}
-            <tr>
-                <td>{{ materiel.id }}</td>
-                <td>{{ materiel.libelle }}</td>
-                <td>
-                    <a href="{{ path('app_materiel_show', {'id': materiel.id}) }}">show</a>
-                    <a href="{{ path('app_materiel_edit', {'id': materiel.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {# Header #}
+    <div class="mb-10 flex items-end justify-between border-b border-slate-700 pb-6">
+        <div>
+            <p class="text-xs font-semibold tracking-widest text-indigo-400 uppercase mb-1">confClub</p>
+            <h1 class="text-4xl font-bold text-white">Matériel</h1>
+        </div>
+        <a href="{{ path('app_materiel_new') }}"
+        class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors duration-200">
+            + Nouveau matériel
+        </a>
+    </div>
 
-    <a href="{{ path('app_materiel_new') }}">Create new</a>
+    {# Table #}
+    <div class="overflow-x-auto rounded-xl border border-slate-800">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="bg-slate-900 text-slate-400 text-xs uppercase tracking-wider">
+                    <th class="px-5 py-4 text-left">#</th>
+                    <th class="px-5 py-4 text-left">Libellé</th>
+                    <th class="px-5 py-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+            {% for materiel in materiels %}
+                <tr class="bg-slate-900 hover:bg-slate-800 transition-colors duration-150">
+
+                    {# ID #}
+                    <td class="px-5 py-4 text-slate-500 font-mono text-xs">{{ materiel.id }}</td>
+
+                    {# Libellé #}
+                    <td class="px-5 py-4 font-semibold text-white">{{ materiel.libelle }}</td>
+
+                    {# Actions #}
+                    <td class="px-5 py-4">
+                        <div class="flex items-center gap-2">
+                            <a href="{{ path('app_materiel_show', {'id': materiel.id}) }}"
+                            class="text-xs font-medium text-slate-300 hover:text-white bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded-md transition-colors">
+                                Voir
+                            </a>
+                            <a href="{{ path('app_materiel_edit', {'id': materiel.id}) }}"
+                            class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
+                                Éditer
+                            </a>
+                            <a href="{{ path('app_materiel_delete', {'id': materiel.id}) }}"
+                            class="text-xs font-medium text-indigo-300 hover:text-white bg-indigo-700/40 hover:bg-indigo-600 px-3 py-1.5 rounded-md transition-colors">
+                                Supprimer
+                            </a>
+                        </div>
+                    </td>
+
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="px-5 py-16 text-center text-slate-600 italic">
+                        Aucun matériel trouvé.
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
 {% endblock %}
