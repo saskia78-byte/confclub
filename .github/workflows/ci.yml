@@ -15,7 +15,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          MYSQL_DATABASE: conferencetest
+          MYSQL_DATABASE: conferencetest_test
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -33,13 +33,6 @@ jobs:
       - name: Installer les dépendances
         run: composer install
 
-      - name: Créer la BDD de test
-        run: |
-          php bin/console doctrine:database:create --env=test
-          php bin/console doctrine:migrations:migrate --env=test --no-interaction
-        env:
-          DATABASE_URL: mysql://root:${{ secrets.DB_PASSWORD }}@127.0.0.1:3306/conferencetest
-
       - name: Vérifier le style du code
         run: composer cs
 
@@ -48,6 +41,11 @@ jobs:
 
       - name: Donner les permissions à phpunit
         run: chmod +x bin/phpunit
+
+      - name: Créer les tables
+        run: php bin/console doctrine:migrations:migrate --env=test --no-interaction
+        env:
+          DATABASE_URL: mysql://root:${{ secrets.DB_PASSWORD }}@127.0.0.1:3306/conferencetest
 
       - name: Lancer les tests
         run: composer test
