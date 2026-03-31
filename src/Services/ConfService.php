@@ -13,6 +13,7 @@ class ConfService
         $this->confRepository = $confRepository;
     }
 
+    /** @return \App\Entity\Conf[] */
     public function getConfListCount(): array
     {
         return $this->confRepository->findByListCount();

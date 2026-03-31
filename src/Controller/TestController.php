@@ -53,7 +53,7 @@ final class TestController extends AbstractController
     }
 
     #[Route('/article/{slug}', name: 'article_show')]
-    public function show($slug): Response
+    public function show(string $slug): Response
     {
         return $this->render('test/article.html.twig', [
             'slug' => "Article n° $slug ",

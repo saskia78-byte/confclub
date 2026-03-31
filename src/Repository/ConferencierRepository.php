@@ -16,6 +16,7 @@ class ConferencierRepository extends ServiceEntityRepository
         parent::__construct($registry, Conferencier::class);
     }
 
+    /** @return Conferencier[] */
     public function findByConference(int $confId): array
     {
         return $this->createQueryBuilder('c')
