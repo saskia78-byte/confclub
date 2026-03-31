@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Tests\Integration\Repository;
 
 use App\Entity\Conf;
@@ -24,13 +25,12 @@ class ConfRepositoryTest extends KernelTestCase
         $this->repo = $container->get(ConfRepository::class);
         $this->repo2 = $container->get(MaterielconfRepository::class);
 
-
         $this->em = self::getContainer()->get(EntityManagerInterface::class);
         $purger = new ORMPurger($this->em);
         $purger->purge();
     }
 
-    public function testAjoutConf(): void 
+    public function testAjoutConf(): void
     {
         $theme = (new Theme())->setLibelle('éco-féminisme');
         $conf = (new Conf())->setTitre('Conf A')->setDescription('Description')->setDateConf(new \DateTime('+2days'))->setDateAjout(new \DateTimeImmutable())->setStatut('En préparation')->setTheme($theme);
@@ -46,7 +46,6 @@ class ConfRepositoryTest extends KernelTestCase
 
     public function testInteMaterielConf(): void
     {
-
         $materiel1 = (new Materiel())->setLibelle('Sono');
         $materiel2 = (new Materiel())->setLibelle('Micro');
         $materiel3 = (new Materiel())->setLibelle('Ampli');
@@ -74,5 +73,4 @@ class ConfRepositoryTest extends KernelTestCase
     // {
 
     // }
-
 }

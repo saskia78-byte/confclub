@@ -17,8 +17,8 @@ class ConfRepository extends ServiceEntityRepository
     }
 
     /**
-        * @return Conf[] Returns an array of Conf objects
-        */
+     * @return Conf[] Returns an array of Conf objects
+     */
     public function findByListCount(): array
     {
         return $this->createQueryBuilder('c')

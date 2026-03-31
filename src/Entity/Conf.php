@@ -15,16 +15,15 @@ class Conf
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name:'id')]
+    #[ORM\Column(name: 'id')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(
         min: 5,
         max: 100,
-        )
-    ]
-    #[Assert\NotBlank(message:'Le titre ne peut pas être vide')]
+    )]
+    #[Assert\NotBlank(message: 'Le titre ne peut pas être vide')]
     private string $titre;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

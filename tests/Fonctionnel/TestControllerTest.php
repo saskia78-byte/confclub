@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Tests\Fonctionnel;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestControllerTest extends WebTestCase
@@ -73,14 +75,14 @@ class TestControllerTest extends WebTestCase
         // Soumet directement en POST sans passer par le crawler
         $client->request('POST', '/conf/new', [
             'conf' => [
-                'titre'          => 'Conf Test',
-                'dateConf'       => '2026-04-12T10:55',
-                'description'    => 'Description',
-                'statut'         => 'En préparation',
-                'conferencier'   => [$conferencier->getId()],
-                'theme'          => $theme->getId(),
-                '_token'         => $token,
-            ]
+                'titre' => 'Conf Test',
+                'dateConf' => '2026-04-12T10:55',
+                'description' => 'Description',
+                'statut' => 'En préparation',
+                'conferencier' => [$conferencier->getId()],
+                'theme' => $theme->getId(),
+                '_token' => $token,
+            ],
         ]);
 
         self::assertResponseRedirects('/conf');
@@ -88,7 +90,4 @@ class TestControllerTest extends WebTestCase
         // $client->followRedirect();
         // self::assertSelectorTextContains('body', 'Conf Test');
     }
-
-    
-
 }

@@ -2,9 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Theme; 
 use App\Entity\Conf;
 use App\Entity\Conferencier;
+use App\Entity\Theme;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

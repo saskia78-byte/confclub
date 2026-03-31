@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Tests\Unit\Services;
 
 use App\Services\ReservationService;
-use App\Services\SoireeReservation;
 use PHPUnit\Framework\TestCase;
 
-class ReservationTest extends TestCase 
+class ReservationTest extends TestCase
 {
     public function testPrixSansReduction(): void
     {
@@ -34,5 +34,4 @@ class ReservationTest extends TestCase
         $calculator = new ReservationService();
         $calculator->calculerPrixTotalConf(-30);
     }
-
 }

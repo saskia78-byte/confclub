@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Materielconf;
@@ -31,6 +32,7 @@ final class ReservationMaterielController extends AbstractController
             }
 
             $em->flush();
+
             return $this->redirectToRoute('app_materielconf_index');
         }
 

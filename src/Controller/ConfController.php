@@ -18,8 +18,9 @@ final class ConfController extends AbstractController
     #[Route(name: 'app_conf_index', methods: ['GET'])]
     public function index(ConfRepository $confRepository, LoggerInterface $logger): Response
     {
-        $logger->info("voici la liste des conférences");
+        $logger->info('voici la liste des conférences');
         $logger->info(serialize($confRepository->findAll()));
+
         return $this->render('conf/index.html.twig', [
             'confs' => $confRepository->findAll(),
         ]);
@@ -34,7 +35,7 @@ final class ConfController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             dd($conf);
-            $conf->setDateAjout(new \DateTimeImmutable);
+            $conf->setDateAjout(new \DateTimeImmutable());
             $conf->setCreateBy($this->getUser());
             $entityManager->persist($conf);
             $entityManager->flush();
