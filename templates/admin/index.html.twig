@@ -1,17 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TestController!{% endblock %}
+{% block title %}Dashboard Admin{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block main %}
+<div class="min-h-screen bg-slate-950 text-white px-6 py-10">
 
-<div class="example-wrapper">
-    <h1> {{ controller_name }}! ✅</h1>
-    <p>
-        
-    </p>
+    {# Header #}
+    <div class="mb-10 border-b border-slate-700 pb-6">
+        <p class="text-xs font-semibold tracking-widest text-indigo-400 uppercase mb-1">confClub</p>
+        <h1 class="text-4xl font-bold text-white">Dashboard</h1>
+    </div>
+
+    {# Cartes #}
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+        <a href="{{ path('app_conferencier_index') }}"
+        class="block bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500 rounded-xl px-6 py-5 transition-all duration-200">
+            <p class="text-2xl mb-2">🎤</p>
+            <p class="font-semibold text-white">Conférenciers</p>
+            <p class="text-xs text-slate-400 mt-1">Gérer les conférenciers</p>
+        </a>
+
+        <a href="{{ path('app_conf_index') }}"
+        class="block bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500 rounded-xl px-6 py-5 transition-all duration-200">
+            <p class="text-2xl mb-2">📅</p>
+            <p class="font-semibold text-white">Conférences</p>
+            <p class="text-xs text-slate-400 mt-1">Gérer les conférences</p>
+        </a>
+
+        <a href="{{ path('app_theme_index') }}"
+        class="block bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500 rounded-xl px-6 py-5 transition-all duration-200">
+            <p class="text-2xl mb-2">🎨</p>
+            <p class="font-semibold text-white">Thèmes</p>
+            <p class="text-xs text-slate-400 mt-1">Gérer les thèmes</p>
+        </a>
+
+        <a href="{{ path('app_materiel_index') }}"
+        class="block bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500 rounded-xl px-6 py-5 transition-all duration-200">
+            <p class="text-2xl mb-2">🔧</p>
+            <p class="font-semibold text-white">Matériel</p>
+            <p class="text-xs text-slate-400 mt-1">Gérer le matériel</p>
+        </a>
+
+        <a href="{{ path('app_materielconf_index') }}"
+        class="block bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-indigo-500 rounded-xl px-6 py-5 transition-all duration-200">
+            <p class="text-2xl mb-2">📦</p>
+            <p class="font-semibold text-white">Réservations</p>
+            <p class="text-xs text-slate-400 mt-1">Gérer les réservations matériel</p>
+        </a>
+
+    </div>
+
 </div>
 {% endblock %}
+

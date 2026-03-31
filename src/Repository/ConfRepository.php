@@ -16,20 +16,18 @@ class ConfRepository extends ServiceEntityRepository
         parent::__construct($registry, Conf::class);
     }
 
-    //    /**
-    //     * @return Conf[] Returns an array of Conf objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+        * @return Conf[] Returns an array of Conf objects
+        */
+    public function findByListCount(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.dateConf', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     //    public function findOneBySomeField($value): ?Conf
     //    {

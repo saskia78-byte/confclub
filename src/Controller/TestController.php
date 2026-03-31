@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Services\ConfService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,10 +16,12 @@ use Symfony\Component\Routing\Attribute\Route;
 final class TestController extends AbstractController
 {
     #[Route('/', name: 'app_test')]
-    public function index(): Response
+    public function index(ConfService $confService): Response
     {
+        $prochainesConf = $confService->getConfListCount();
         return $this->render('test/index.html.twig', [
             'controller_name' => 'Bienvenue au confclub Manager',
+            'confs' => $prochainesConf,
         ]);
     }
 

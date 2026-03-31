@@ -6,6 +6,7 @@ use App\Entity\Conf;
 use App\Form\ConfType;
 use App\Repository\ConfRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +16,10 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ConfController extends AbstractController
 {
     #[Route(name: 'app_conf_index', methods: ['GET'])]
-    public function index(ConfRepository $confRepository): Response
+    public function index(ConfRepository $confRepository, LoggerInterface $logger): Response
     {
+        $logger->info("voici la liste des conférences");
+        $logger->info(serialize($confRepository->findAll()));
         return $this->render('conf/index.html.twig', [
             'confs' => $confRepository->findAll(),
         ]);
@@ -30,7 +33,9 @@ final class ConfController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dd($conf);
             $conf->setDateAjout(new \DateTimeImmutable);
+            $conf->setCreateBy($this->getUser());
             $entityManager->persist($conf);
             $entityManager->flush();
 
@@ -54,6 +59,10 @@ final class ConfController extends AbstractController
     #[Route('/{id}/edit', name: 'app_conf_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Conf $conf, EntityManagerInterface $entityManager): Response
     {
+        if ($conf->getCreateby() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas modifier cette conférence.');
+        }
+
         $form = $this->createForm(ConfType::class, $conf);
         $form->handleRequest($request);
 

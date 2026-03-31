@@ -45,7 +45,7 @@ class Conf
     #[ORM\ManyToMany(targetEntity: Conferencier::class, inversedBy: 'confs')]
     private Collection $Conferencier;
 
-    #[ORM\ManyToOne(inversedBy: 'confs')]
+    #[ORM\ManyToOne(inversedBy: 'confs', cascade: ['persist'])]
     private ?Theme $theme = null;
 
     /**
@@ -53,6 +53,9 @@ class Conf
      */
     #[ORM\OneToMany(targetEntity: Materielconf::class, mappedBy: 'conf')]
     private Collection $materielconfs;
+
+    #[ORM\ManyToOne(inversedBy: 'confs')]
+    private ?User $createby = null;
 
     public function __construct()
     {
@@ -187,6 +190,18 @@ class Conf
                 $materielconf->setConf(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreateby(): ?User
+    {
+        return $this->createby;
+    }
+
+    public function setCreateby(?User $createby): static
+    {
+        $this->createby = $createby;
 
         return $this;
     }

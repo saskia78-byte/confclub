@@ -16,7 +16,7 @@ class Materielconf
     #[ORM\Column]
     private ?\DateTimeImmutable $dateresa = null;
 
-    #[ORM\ManyToOne(inversedBy: 'materielconfs')]
+    #[ORM\ManyToOne(inversedBy: 'materielconfs', cascade: ['persist'])]
     private ?Materiel $materiel = null;
 
     #[ORM\ManyToOne(inversedBy: 'materielconfs')]
