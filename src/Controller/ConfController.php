@@ -34,9 +34,10 @@ final class ConfController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($conf);
             $conf->setDateAjout(new \DateTimeImmutable());
-            $conf->setCreateBy($this->getUser());
+            /** @var \App\Entity\User $user */
+            $user = $this->getUser();
+            $conf->setCreateBy($user);
             $entityManager->persist($conf);
             $entityManager->flush();
 

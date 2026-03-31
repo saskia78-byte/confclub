@@ -20,8 +20,10 @@ class ConfTest extends TestCase
     public function testAddConferencierOnlyOnce(): void
     {
         $conf = new Conf();
-        $conferencier = new Conferencier('Adelaide');
-        $conferencier2 = new Conferencier('Charles');
+        $conferencier = new Conferencier();
+        $conferencier->setNom('Adelaide');
+        $conferencier2 = new Conferencier();
+        $conferencier2->setNom('Charles');
         $conf->addConferencier($conferencier);
         $conf->addConferencier($conferencier2);
         self::assertCount(2, $conf->getConferencier());
